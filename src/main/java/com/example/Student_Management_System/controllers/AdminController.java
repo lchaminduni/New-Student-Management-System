@@ -1,6 +1,7 @@
 package com.example.Student_Management_System.controllers;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,8 +38,14 @@ public class AdminController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<Admin> register(@RequestBody Admin admin){
-        return new ResponseEntity<>(adminService.register(admin),HttpStatus.CREATED);
+    public ResponseEntity<?> register(@RequestBody Admin admin){
+        adminService.register(admin); // your service method
+
+    // Return custom success message
+    Map<String, String> response = new HashMap<>();
+    response.put("message", "Admin registered successfully");
+
+    return ResponseEntity.ok(response);
     }
 
     @PostMapping("/login")
